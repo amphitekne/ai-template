@@ -53,4 +53,18 @@ AGENTS.md defines collaboration; `docs/project-guide.md` holds the project's tec
 
 For a monorepo, the project guide links package-specific guides when needed and identifies their scope. Keep common rules centralized and load only guidance relevant to the affected packages. A single repository can use just the project guide. No package-guide directory is required until there is distinct guidance to store.
 
+For example, packages in the same Git repository can use this layout (illustrative; create local guides only when needed):
+
+```text
+AGENTS.md
+docs/project-guide.md                 # Shared rules and scope index
+apps/web/docs/project-guide.md        # Scope: apps/web/**
+apps/api/docs/project-guide.md        # Scope: apps/api/**
+packages/shared/                      # No separate guide unless useful
+```
+
+In `docs/project-guide.md`, link the web guide with `[Web](../apps/web/docs/project-guide.md)` and its scope `apps/web/**`; the web guide links back with `[Shared guide](../../../docs/project-guide.md)`. These are example link paths, not files supplied by this template. Local rules complement shared rules; explicitly record accepted exceptions. Work touching both web and API consults both guides, plus guidance for any affected shared code. Recheck the applicable guides as the change expands.
+
+If a child is a separate Git repository or submodule, give it its own AGENTS.md and project guide, with the workflow resources available when opened alone. The container documents integration and links to child guidance. Contracts and commits belong to each Git repository; see [repository boundaries](docs/workflow.md#repository-boundaries). A monorepo of ordinary folders needs no duplicate AGENTS.md, skills or verifier per package.
+
 The driver proposes rule changes from real evidence; the navigator accepts direction and exceptions. Follow the [evolution procedure](docs/workflow.md#evolving-project-guidance). Changes specify how existing code is treated and do not start automatic migrations. Keep substantial decision rationale in separate files only when needed. The five existing skills handle this; no additional phase or skill is required.
