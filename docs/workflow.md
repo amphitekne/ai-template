@@ -1,6 +1,6 @@
 # Pairing workflow — v5
 
-Story proposes work; backlog records accepted work; pair drives it; refactor is optional; review reports findings. The navigator controls direction and validation; the AI driver works in small understandable steps.
+Backlog splits feature intent into a short list and records accepted work; story refines one selected slice just before implementation; pair drives it. Refactor and review are optional unless explicitly required by the navigator or project rules. The navigator controls direction and validation; the AI driver works in small understandable steps.
 
 ## Skill activation
 
@@ -9,7 +9,7 @@ Only the human explicitly invokes skills, for example with `$story` or `$pair`. 
 | From | Required evidence | To |
 | --- | --- | --- |
 | Proposed | Navigator accepts scope and criteria | Accepted |
-| Accepted | Baseline inspected and criterion-to-test mapping agreed | RED |
+| Accepted | Baseline inspected; automated criteria mapped to tests and manual criteria to checks | RED |
 | RED | Expected missing-behavior failures, exact diff and commands presented | Awaiting test approval |
 | Awaiting test approval | Explicit approval of exact tests and paths, separate test commit, sealed contract verifies | Tests committed |
 | Tests committed | Verified contract and approved command/collection evidence | GREEN |
@@ -18,6 +18,14 @@ Only the human explicitly invokes skills, for example with `$story` or `$pair`. 
 | Any active state | Invalid tests, changed scope, missing prerequisite, integrity failure | Blocked |
 
 Record actual approval messages/references and exact approved revision. Silence and general implementation authorization never approve tests. The human commits or explicitly authorizes the AI. Stage only intended files. Normal delivery has two commits: RED tests, then implementation after human validation. Documentation and evidence may accompany the appropriate commit. Record final hashes afterward to avoid self-referential hashes inside a commit.
+
+Prepare one concrete test-approval package: exact diff, criterion coverage, protected paths, approved commands, collection and expected RED failures. Do not add separate mandatory approvals for test names or evidence formatting. This workflow remains slice-wide RED then GREEN; small GREEN steps do not authorize writing a new test between implementation steps.
+
+## Test quality and pairing pace
+
+Test user-observable behavior through public interfaces at the highest practical level. Add focused lower-level coverage when useful, not a copy at every layer. Expected values must come from criteria or independent examples, not the implementation's own calculation. Explicitly separate automated criteria from manual checks; manual checks need concrete steps and expected results and are completed during human validation. They do not excuse missing automated coverage of testable behavior.
+
+Use a short plan and brief progress updates. Continue ordinary edits and checks within the approved scope without asking permission at every step. Stop at established gates, unplanned design decisions, scope changes or test defects. After two consecutive unsuccessful fix attempts on the same failure without meaningful progress, pause for navigator direction with evidence and the smallest next option. Expected RED failures are not unsuccessful fix attempts. Size limits are prompts to consider splitting, not mandatory counts of criteria, lines or files.
 
 ## Executable contract gate
 
@@ -42,7 +50,11 @@ Stop GREEN and mark Blocked. Explain the defect and preserve implementation sepa
 
 ## Lightweight documentation
 
-Keep scope, coverage, commands/results, approvals, hashes, blockers and demonstration steps in the story. Keep the backlog a linked index. Update usage documentation when behavior changes; propose adjacent improvements separately. Review and automation never substitute for navigator validation.
+Keep one source for each fact: the story owns scope, status and compact delivery evidence; criteria name their tests or manual checks; the manifest owns protected paths and file hashes; the backlog is a one-line index. Existing backlogs may retain useful status/priority columns, but do not require synchronization of intermediate states. Create detailed files only for selected stories. Do not generate reports, raw log archives, empty sections or decision records by default.
+
+The driver maintains three evidence entries: RED (commands, collection, baseline/expected failures, explicit approval and full test commit); contract (manifest path, independently recorded SHA-256 and verification result); delivery (GREEN/regression commands/results, human validation and implementation commit). Concise summaries or durable links suffice. Keep the exact approved test revision identifiable; do not replace approval with an overall success summary. Record contract revisions or limitations only when they arise. The hashes and digest remain required for integrity checks, without duplicating manifest contents or terminal logs. No extra evidence-only commit is required: record final delivery references locally or in the next normal documentation update.
+
+Update usage documentation when behavior changes; propose adjacent improvements separately. Review and automation never substitute for navigator validation.
 
 ## Evolving project guidance
 

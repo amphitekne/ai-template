@@ -1,15 +1,17 @@
 ---
 name: backlog
-description: Maintain a Markdown backlog of accepted stories, priorities, dependencies, and evidence-based status; not feature design or implementation.
+description: Split feature intent into a short backlog of vertical stories and maintain accepted work; leave detailed criteria and implementation to story and pair.
 ---
 
 # Backlog
 
 Run only when explicitly invoked by the human. Never activate another skill automatically; suggest the next skill and wait for the human to invoke it.
 
-Read the [workflow](../../../docs/workflow.md), backlog, and linked stories. Use the [backlog](../../../templates/backlog.md) and [story](../../../templates/story.md) templates. Preserve IDs, useful decisions, and user edits.
+Read the [workflow](../../../docs/workflow.md), relevant project guidance, and existing backlog. Use the [backlog template](../../../templates/backlog.md). Preserve IDs, useful decisions, and user edits.
 
-Record only navigator-accepted stories using stable IDs and relative links. Follow navigator priorities and confirmed dependencies. Propose splits for oversized stories through story. Keep detailed evidence in stories and synchronize status with the index.
+From the user's intent, propose a short list of one-line stories delivering independent end-to-end value. Start with the smallest usable slice; add infrastructure inside the first slice that needs it. Ask about consequential unknowns when relevant, without inventing requirements or designing the architecture. Do not expand every item into criteria or implementation plans. For maintenance work, state its concrete outcome rather than inventing a fictional user.
+
+Present proposals in the conversation; record only navigator-accepted items in the backlog with stable IDs and real dependencies. Priorities are optional and follow the navigator. Create a detailed story file only when that item is selected for refinement through an explicit invocation of story; link it then. The story owns delivery status once it exists; the backlog need not mirror every intermediate state.
 
 No GREEN without explicit approval and a committed verified RED contract; no Done without human validation and the separate implementation commit. Record blockers and next decisions. Never invent requirements, approvals, or evidence. Backlog maintenance does not authorize implementation or external actions.
 

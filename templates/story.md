@@ -12,27 +12,20 @@ As a <user>, I want <capability>, so that <outcome>.
 - <Explicit adjacent exclusions>
 
 ## Acceptance criteria
-- AC1: Given <context>, when <action>, then <observable result>.
+- AC1 [automated: <public interface/test>]: Given <context>, when <action>, then <observable result>.
+- AC2 [manual, only when useful]: <Steps and expected observable result>.
 
-## Dependencies and open decisions
-Record confirmed dependencies, label assumptions, or write None.
+## Plan
+- <Smallest implementation approach; a few bullets, not a task specification>
 
-When relevant, link applicable project-guide rule IDs and note conflicts or proposed exceptions here. Record the navigator's acceptance of an exception and its scope before affected work. Do not duplicate the guide or require this bookkeeping when no rule decision is involved.
+Add dependencies, unresolved decisions or relevant guide exceptions only when needed. Record navigator acceptance before applying an exception. Remove unused sections rather than filling them with None.
 
-## Test contract and evidence
-- Acceptance-to-test mapping:
-- Baseline and RED commands, collection, results and expected failure reasons:
-- Protected tests, helpers, fixtures, snapshots, configuration and dependencies:
-- Explicit approval reference and exact approved revision:
-- Full RED test commit hash:
-- Contract manifest path and independently recorded SHA-256:
-- Verification and GREEN/regression results:
-- Contract revisions and renewed approvals, if any:
+## Delivery evidence
 
-## Human validation and delivery
-- Demonstration steps and expected result:
-- Navigator validation reference:
-- Full implementation commit hash:
-- Limitations or follow-up proposals:
+Fill these three short entries as the work progresses. Link durable output or use concise summaries; do not paste complete logs. The driver maintains the evidence.
 
-Replace fields with actual evidence when available. Never assume future approvals.
+- RED: <commands, baseline/new-test collection and expected failures; explicit approval reference and approved revision; full test commit hash>
+- Contract: <manifest path and independently recorded SHA-256; verification result; protected paths live in the manifest>
+- Delivery: <GREEN/regression commands and results; human validation reference including manual criteria; full implementation commit hash>
+
+Criteria above provide the coverage mapping and manual demonstration steps. Record limitations, blockers or renewed approvals only when they occur. Never assume future approvals or fill future gates with invented evidence.

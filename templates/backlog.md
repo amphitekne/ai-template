@@ -1,8 +1,8 @@
 # Backlog
 
-Only navigator-accepted stories belong here. Keep detailed evidence in linked Markdown stories and synchronize statuses.
+Only navigator-accepted stories belong here. Keep one line per item. Add a linked story file when the item is selected for refinement, not for the entire backlog up front.
 
-| ID | Story | Priority | Status | Dependencies / blocker |
-| --- | --- | --- | --- | --- |
+| ID | Outcome / story link when available | Dependencies / blocker |
+| --- | --- | --- |
 
-Statuses: Accepted, RED, Awaiting test approval, Tests committed, GREEN, Awaiting human validation, Done, Blocked.
+The detailed story owns delivery status and evidence. Mark completion or blockers here when useful; do not mirror every workflow transition. Add priority only if it helps the navigator choose work.

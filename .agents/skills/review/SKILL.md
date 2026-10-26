@@ -11,6 +11,8 @@ Read requested artifacts and necessary references in full. Compare with confirme
 
 For slices, inspect coverage, RED failures, explicit approval, test commit, contract verification, collection, GREEN results, scope, validation and separate implementation commit. Execute the verifier when available; state missing evidence. Prioritize concrete defects and readable minimal design over style.
 
+Check that tests exercise public behavior and use independently derived expected values; flag tests that merely reproduce implementation logic. Check that manual criteria have concrete validation steps and human results. Accept compact linked evidence; do not demand duplicate logs, exhaustive plans or extra documents. Review is optional unless the navigator or applicable project rules require it.
+
 For templates, check objectives, inputs/outputs, contradictions, dependencies, triggers, frontmatter, and relative links. Reason through representative and nearby excluded requests; label reasoning as reasoning, not executed tests.
 
 Check applicable project-guide rules and accepted exceptions. Flag concrete violations, conflicting or obsolete guidance, and experiments whose review trigger has been reached. Distinguish accepted rules from proposals; suggest bounded updates rather than silently promoting conventions or requesting broad cleanup.

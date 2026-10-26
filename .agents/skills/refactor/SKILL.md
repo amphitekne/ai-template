@@ -14,3 +14,5 @@ Explain a concrete readability problem and the smallest improvement. Preserve sc
 Apply relevant project-guide conventions within the approved scope. Surface obsolete rules or useful lessons as proposals; obtain navigator acceptance before deviating or updating guidance. Do not use a changed convention as authorization for a broad migration.
 
 Change in small steps; verify integrity and rerun approved tests plus relevant regressions. Wrong tests block refactoring and require renewed approval. Return results for human validation. Refactoring in an active slice belongs in its implementation commit. A later standalone refactor needs a bounded story and validation; do not manufacture failing tests for unchanged behavior or rewrite completed history.
+
+Stop after two consecutive fix attempts on the same regression without meaningful progress; show the evidence and ask for navigator direction. Keep the handoff to a short description of the simplification, check results and remaining human validation; do not create a separate refactor report.

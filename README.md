@@ -6,8 +6,8 @@ Skills are user-invoked only: use `$story`, `$backlog`, `$pair`, `$refactor`, or
 
 | Skill | Purpose |
 | --- | --- |
-| [story](.agents/skills/story/SKILL.md) | Propose small end-to-end stories |
-| [backlog](.agents/skills/backlog/SKILL.md) | Record accepted stories and priorities |
+| [backlog](.agents/skills/backlog/SKILL.md) | Split ideas into a short backlog and record accepted work |
+| [story](.agents/skills/story/SKILL.md) | Refine one selected slice with criteria, scope and a small plan |
 | [pair](.agents/skills/pair/SKILL.md) | RED approval and commit, GREEN, validation and implementation commit |
 | [refactor](.agents/skills/refactor/SKILL.md) | Optionally simplify passing code |
 | [review](.agents/skills/review/SKILL.md) | Check correctness, scope, integrity, and clarity |
@@ -16,7 +16,9 @@ Copy all five skills, docs/, templates/, scripts/, and the relevant AGENTS.md ag
 
 Use this repository as a starting template for a single repository or a monorepo. Keep AGENTS.md as the reusable working agreement. Replace `docs/project-guide.md` with the target project's accepted decisions using the guide template; its current template-maintenance rules do not transfer to the new product. Adapt this README to the new project. Keep the shared workflow, skill procedures, and contract tooling available at their linked paths.
 
-Example requests: “Use $story to propose slices”; “Use $backlog to record these accepted stories”; “Use $pair for S-001”; “Use $refactor on this passing implementation”; “Use $review on this diff.” Proposals do not authorize implementation.
+Typical flow: `$backlog` → `$story` → `$pair`. Example requests: “Use $backlog to split this feature”; “Use $story to refine S-001”; “Use $pair for S-001”; “Use $refactor on this passing implementation”; “Use $review on this diff.” Each skill still requires its own human invocation. Proposals do not authorize implementation.
+
+Keep the backlog to one line per accepted item; expand only the next selected story. Use a few observable criteria, a small plan, and three compact delivery-evidence entries. Tests exercise public behavior with independent expected values; visual or otherwise unsuitable automated checks get explicit manual validation steps. Pause after two fix attempts on the same failure without meaningful progress. There are no fixed line/file quotas or mandatory review/refactor rounds. Explicit test approval, the committed RED contract, human validation and the separate implementation commit remain required.
 
 Read the [workflow](docs/workflow.md). Use the [backlog](templates/backlog.md) and [story](templates/story.md) templates in the target project. No product requirements or backlog entries are invented here.
 
