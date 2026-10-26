@@ -58,6 +58,8 @@ Update usage documentation when behavior changes; propose adjacent improvements 
 
 ## Evolving project guidance
 
+Stack presets are optional starting points selected explicitly by the navigator. Follow the [preset procedure](../presets/README.md) to adopt a scoped snapshot in the project guide; do not read or apply unrelated presets, scaffold a stack automatically, or treat later catalog edits as active-rule changes. Selecting a preset is a normal user instruction and does not invoke a skill.
+
 Read the target project's `docs/project-guide.md` and any applicable module instructions when preparing a story and before implementation. Consult linked decisions only when relevant. If the guide is absent, inspect existing instructions and configuration; propose a minimal guide using the [template](../templates/project-guide.md) when useful. Missing documentation alone is not a blocker. Do not invent a stack or convert observed code patterns into accepted rules.
 
 For a monorepo, use the root guide's scope index to select local guides for the packages and shared code affected by the task, including integration boundaries. Local guides state their repository-root-relative scope and link back to the root guide. Follow relevant linked guides, and recheck applicability if the work reaches another package. A missing or stale index entry is not permission to ignore existing local guidance: inspect applicable instructions and nearby package documentation and propose a corrected link when useful. Do not create guides for packages without distinct rules.

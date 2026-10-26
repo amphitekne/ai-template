@@ -1,6 +1,6 @@
 # templating-ai — v5
 
-Five English-language skills for human-led pair programming. The human navigates; the AI drives. No custom subagents.
+Five skills for human-led pair programming. The human navigates; the AI drives. No custom subagents.
 
 Skills are user-invoked only: use `$story`, `$backlog`, `$pair`, `$refactor`, or `$review`. Each skill's `agents/openai.yaml` sets `policy.allow_implicit_invocation: false`; copy these files with the skills. The AI may recommend another skill but waits for your explicit invocation. These `agents/` directories contain skill configuration, not custom subagents. Start a new session to reload changed invocation settings if needed.
 
@@ -12,7 +12,7 @@ Skills are user-invoked only: use `$story`, `$backlog`, `$pair`, `$refactor`, or
 | [refactor](.agents/skills/refactor/SKILL.md) | Optionally simplify passing code |
 | [review](.agents/skills/review/SKILL.md) | Check correctness, scope, integrity, and clarity |
 
-Copy all five skills, docs/, templates/, scripts/, and the relevant AGENTS.md agreement into a target repository, preserving relative paths and merging existing conventions. Reopen a Codex session if new skills are not discovered.
+Copy all five skills, docs/, templates/, presets/, scripts/, and the relevant AGENTS.md agreement into a target repository, preserving relative paths and merging existing conventions. Reopen a Codex session if new skills are not discovered.
 
 Use this repository as a starting template for a single repository or a monorepo. Keep AGENTS.md as the reusable working agreement. Replace `docs/project-guide.md` with the target project's accepted decisions using the guide template; its current template-maintenance rules do not transfer to the new product. Adapt this README to the new project. Keep the shared workflow, skill procedures, and contract tooling available at their linked paths.
 
@@ -29,13 +29,13 @@ Run this from the root of your destination repository in Bash (Linux, macOS, or 
   git clone --depth 1 https://github.com/amphitekne/ai-template.git "$template_dir/source"
   mkdir "$template_dir/content"
   git -C "$template_dir/source" archive HEAD | tar -xf - -C "$template_dir/content"
-  cp -ai "$template_dir/content/." .
+  command cp -af "$template_dir/content/." .
 )
 
 git status --short
 ```
 
-`cp -ai` asks before overwriting existing files. Answer `n` for files whose content you want to preserve, then merge the relevant instructions manually, especially AGENTS.md, README.md, `.gitignore`, and any existing skills or documentation. The trailing `/.` copies the contents directly into the destination root rather than creating a template folder. Review the resulting diff before committing and adapt the project guide to your product.
+`command cp -af` overwrites matching files automatically without confirmation, including AGENTS.md, README.md, `.gitignore`, and the project guide. Commit or back up any local content you want to retain before running it. `command` bypasses a shell alias or function that might otherwise enable interactive copying. The trailing `/.` copies the contents directly into the destination root rather than creating a template folder. Review the resulting diff before committing and adapt the project guide to your product.
 
 `git clone` has no option to omit `.git`, and cloning into a nonempty repository root is not supported. The temporary clone plus `git archive` avoids copying the template's Git metadata; cleanup removes only the temporary clone and export. Do not run this block in PowerShell: `cp` there is a different command. Use a Git Bash terminal for these commands on Windows.
 
@@ -48,6 +48,8 @@ Read the [workflow](docs/workflow.md). Use the [backlog](templates/backlog.md) a
 The contract verifier requires Python 3 and Git, with no third-party packages. Run regression checks with `python -m unittest discover -s tests -v`. It verifies content integrity, not human approval or test quality.
 
 ## Evolving technical guidance
+
+For reusable starting choices, use the [stack preset catalog](presets/README.md): [Python 3.15 + uv + FastAPI + Pydantic](presets/backend-python-fastapi.md) or [React + Vite + Zod + pnpm](presets/frontend-react-vite.md). For example: “Apply backend-python-fastapi to apps/api and frontend-react-vite to apps/web.” No new skill or script is needed. The driver snapshots accepted rules into the applicable guides; the catalog alone does not activate rules or install anything. Presets cover modular clean architecture, API validation and routers, or reusable UI and a single source of design tokens. Project-specific choices remain in the guide, and preset updates never migrate adopted projects automatically.
 
 AGENTS.md defines collaboration; `docs/project-guide.md` holds the project's technical restrictions, conventions, and bounded experiments. This repository's [guide](docs/project-guide.md) describes template maintenance. When adopting the system, replace it with product-specific confirmed rules using the [guide template](templates/project-guide.md), and merge links into the target AGENTS.md. Define stack, style, tests, and security only as decisions are made; no complete up-front specification is required.
 

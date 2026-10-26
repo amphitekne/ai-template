@@ -6,6 +6,8 @@ Use this template to create `docs/project-guide.md` in the target project. Keep 
 
 Record product context only when it changes engineering decisions. Identify any modules with different requirements. Link existing authoritative documentation rather than copying it.
 
+If the navigator selects a stack preset, follow the [preset procedure](../presets/README.md): snapshot its accepted rules here or in the relevant package guide, record the source revision and overrides, and keep the guide self-contained. Catalog presets do not apply merely because their files are present. Remove this setup instruction when initializing the target guide.
+
 For a monorepo, keep shared rules here and link scoped guides only where packages have meaningful differences. State each guide's package/path scope and any accepted exceptions to shared conventions. Do not create a guide per package by default or duplicate shared rules. For a single repository, this file may be sufficient. Keep stack, layout, language/style, testing commands, and security choices here or in those linked guides rather than adding them to the reusable AGENTS.md agreement.
 
 ## Scoped guide index (only when needed)
