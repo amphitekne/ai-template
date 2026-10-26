@@ -15,7 +15,7 @@ Apply through the [preset procedure](README.md). Scope: the selected web fronten
 
 - WEB-C1 — Prefer TypeScript with strict checking to make schema-derived contracts useful throughout the code. This is a preset default, not a claim that the project already uses TypeScript. Record an accepted JavaScript exception if required by the target project.
 - WEB-C2 — Keep design-system tokens and primitives centralized. For one frontend, keep them local; extract a shared workspace package only when multiple consumers need it. Make loading, empty, error and validation states explicit where applicable. Do not select a UI library, styling framework, router or state library without a concrete need and an accepted choice.
-- WEB-C3 — Test user-visible behavior, boundary validation and reusable component interactions. Verify theme-token propagation and visual quality manually where automation is unsuitable. Select actual test tools and scripts in the project guide; do not assume a runner or introduce snapshot-heavy coverage by default.
+- WEB-C3 — Default to fast unit tests of logic/schemas and focused component interaction tests where useful. Human checks cover complete browser flows, theme-token propagation and visual quality by default; record steps and remaining risks. Browser E2E and deployment builds are separate explicit/accepted-project checks, not automatic prerequisites for each edit. Record lightweight iteration/closing commands; choose tools only when needed, without snapshot-heavy coverage by default.
 - WEB-C4 — Run project scripts with pnpm and document their working directory. A build succeeding does not replace type checks or tests. Define only the scripts required by selected tools and accepted work.
 
 ## Layout example

@@ -47,6 +47,12 @@ Read the [workflow](docs/workflow.md). Use the [backlog](templates/backlog.md) a
 
 The contract verifier requires Python 3 and Git, with no third-party packages. Run regression checks with `python -m unittest discover -s tests -v`. It verifies content integrity, not human approval or test quality.
 
+## Fast checks by default
+
+Use unit tests for logic and focused integration only where a real boundary needs it. A vertical story does not require automated E2E. Approve focused iteration commands and a lightweight mandatory closing set with the RED tests. Iterate on the relevant subset; run closing checks on the delivered state, reusing evidence only when relevant inputs are demonstrably unchanged. The closing set includes approved story tests and required regressions, not automatically every suite in the repository.
+
+Docker images, full deployment stacks and automated E2E run only on explicit request or under accepted project requirements. Keep their commands separate in the project guide. The human validates complete flows with supplied steps; the driver reports what automation did and did not establish. Contract integrity remains mandatory; regression tests of the contract tool itself run when that tool changes or when required, not for every product story. See [execution and evidence rules](docs/workflow.md#execution-plan-and-reusable-evidence). Existing story contracts are not silently reduced by adopting this default.
+
 ## Evolving technical guidance
 
 For reusable starting choices, use the [stack preset catalog](presets/README.md): [Python 3.15 + uv + FastAPI + Pydantic](presets/backend-python-fastapi.md) or [React + Vite + Zod + pnpm](presets/frontend-react-vite.md). For example: “Apply backend-python-fastapi to apps/api and frontend-react-vite to apps/web.” No new skill or script is needed. The driver snapshots accepted rules into the applicable guides; the catalog alone does not activate rules or install anything. Presets cover modular clean architecture, API validation and routers, or reusable UI and a single source of design tokens. Project-specific choices remain in the guide, and preset updates never migrate adopted projects automatically.

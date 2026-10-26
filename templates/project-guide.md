@@ -26,6 +26,8 @@ Record mandatory boundaries such as confirmed stack choices, security requiremen
 
 Record defaults that help keep code homogeneous: module layout, naming, error handling, testing practices, and documentation placement where relevant. Use the same small rule format. The driver follows them and presents a concrete reason and bounded alternative before deviating; the navigator accepts the exception or revised rule. A one-story exception does not redefine the project default.
 
+Testing defaults to fast unit tests, focused integration where a real boundary needs it, and human full-flow validation. Record actual fast commands and working directories; list costly Docker/deployment/E2E commands separately with their explicit execution triggers. State accepted stronger requirements by scope rather than silently adding them to the default test command. A story approves its iteration/closing selection and any reuse follows the shared workflow; no exhaustive suite is mandatory merely because it exists.
+
 ## Experiments
 
 Record only accepted trials. Include a rule ID, limited scope, approach, success/stop criteria, and a review trigger such as a story outcome or date. At that trigger, ask the navigator to retain, revise, or end the trial. Do not silently promote it to a convention or extend it beyond scope. Unresolved trials do not authorize expansion.

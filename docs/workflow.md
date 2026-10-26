@@ -13,17 +13,40 @@ Only the human explicitly invokes skills, for example with `$story` or `$pair`. 
 | RED | Expected missing-behavior failures, exact diff and commands presented | Awaiting test approval |
 | Awaiting test approval | Explicit approval of exact tests and paths, separate test commit, sealed contract verifies | Tests committed |
 | Tests committed | Verified contract and approved command/collection evidence | GREEN |
-| GREEN | Approved tests and regressions pass, optional refactor passes, unchanged contract | Awaiting human validation |
+| GREEN | Agreed closing set passes on delivered state, optional refactor checked, unchanged contract; human checks and remaining risks supplied | Awaiting human validation |
 | Awaiting human validation | Human validates behavior, separate implementation commit exists, contract verifies | Done |
 | Any active state | Invalid tests, changed scope, missing prerequisite, integrity failure | Blocked |
 
 Record actual approval messages/references and exact approved revision. Silence and general implementation authorization never approve tests. The human commits or explicitly authorizes the AI. Stage only intended files. Normal delivery has two commits: RED tests, then implementation after human validation. Documentation and evidence may accompany the appropriate commit. Record final hashes afterward to avoid self-referential hashes inside a commit.
 
-Prepare one concrete test-approval package: exact diff, criterion coverage, protected paths, approved commands, collection and expected RED failures. Do not add separate mandatory approvals for test names or evidence formatting. This workflow remains slice-wide RED then GREEN; small GREEN steps do not authorize writing a new test between implementation steps.
+Prepare one concrete test-approval package: exact diff, criterion coverage, protected paths, iteration and closing commands, collection, expected RED failures and human checks/remaining risks. Approve it together, without separate rounds for test names or evidence formatting. This workflow remains slice-wide RED then GREEN; small GREEN steps do not authorize writing a new test between implementation steps.
 
 ## Test quality and pairing pace
 
-Test user-observable behavior through public interfaces at the highest practical level. Add focused lower-level coverage when useful, not a copy at every layer. Expected values must come from criteria or independent examples, not the implementation's own calculation. Explicitly separate automated criteria from manual checks; manual checks need concrete steps and expected results and are completed during human validation. They do not excuse missing automated coverage of testable behavior.
+Test each behavior at the lowest-cost level that detects its relevant failures. Default to fast unit tests of public domain/application behavior. Use focused integration when the risk depends on a boundary (for example SQL semantics or request serialization) that a unit test cannot establish. Do not duplicate coverage at every layer or require automated E2E because a story is vertical. Expected values come from criteria or independent examples, never the implementation's own calculation.
+
+The human validates complete user flows by default, with concrete steps and expected results. Criteria may have automated checks, human checks or both. State which integration/deployment/visual risks automation does not cover; passing unit tests must not be presented as proof of the entire flow. If a material risk warrants more automation, propose the smallest useful check. Existing accepted project requirements remain binding.
+
+## Execution plan and reusable evidence
+
+Approve the execution plan with the RED tests. Record the working directory and exact focused iteration commands, the mandatory closing set, and human checks. The closing set includes every approved story test plus relevant regressions and checks required by the project's accepted rules; it is not automatically the whole repository suite. Defaults:
+
+| Check | Normal use |
+| --- | --- |
+| Fast unit tests | Relevant subset during GREEN; agreed set at closing |
+| Focused integration | Only for an identified boundary risk; include in closing if approved |
+| Docker builds, full stacks, deployment checks, automated E2E | Outside the normal loop; only on explicit request or when accepted project rules require them |
+| Contract verifier regression tests | When the verifier or its dependencies change, or explicitly required; not for every product story |
+| Contract integrity verification | At entry to GREEN, around closing checks, after optional refactor and immediately before implementation commit |
+| Complete user flows | Human validation before the implementation commit |
+
+Do not start containers or rebuild images as a hidden side effect of a supposedly fast command. If infrastructure is needed, explain the cost and obtain acceptance unless already required. Document expensive commands separately in the project guide rather than chaining them into normal unit tests. When slow checks are required, measure the slow phases before proposing optimizations; reuse services only when isolation/reset rules preserve correctness. No new verification skill or infrastructure is required by this workflow.
+
+Establish a relevant baseline once. During GREEN, run only the approved subset related to the change/failure; do not rerun a full closing set before and after every edit. Run the closing set after the final relevant code change and optional refactor. Check collection against the approved closing set, not the smaller iteration subset. A required check that cannot run is reported as blocked, never passed. Reducing an already approved closing set requires explicit navigator acceptance; changes to protected tests/configuration still require renewed RED approval and commit.
+
+Reuse a passing result only when its relevant code (including transitive dependencies/shared configuration), tests, dependency lockfiles, command/selection, runtime and relevant environment inputs are demonstrably unchanged. Record a compact source/result reference plus the input state and environment sufficient to justify reuse; a timestamp or unchanged test file alone is insufficient. If validity cannot be established, rerun the focused baseline or affected closing checks. A final-state result can be reused after documentation-only edits or committing unchanged bytes when the command does not depend on those edits or Git state. Code, environment or fixtures changed during manual validation invalidate affected results. Never reuse an expected RED failure as a passing baseline or carry approval forward to modified tests. This is a lightweight evidence rule, not a requirement to build a cache system.
+
+Changing this template does not retroactively reduce contracts or closing requirements in active stories. Propose and explicitly accept those execution-plan changes in the target project; preserve its existing tests and approval evidence.
 
 Use a short plan and brief progress updates. Continue ordinary edits and checks within the approved scope without asking permission at every step. Stop at established gates, unplanned design decisions, scope changes or test defects. After two consecutive unsuccessful fix attempts on the same failure without meaningful progress, pause for navigator direction with evidence and the smallest next option. Expected RED failures are not unsuccessful fix attempts. Size limits are prompts to consider splitting, not mandatory counts of criteria, lines or files.
 
@@ -40,7 +63,7 @@ Paths above are examples. Protect whole test directories including future additi
 
 Seal from a clean tracked worktree and index matching the RED commit. Unrelated untracked files outside protected paths are allowed. Keep the manifest outside protected paths. Record its location and the full RED hash independently in the story. Also record the manifest SHA-256 printed by seal independently in the story. Every verify command must use that digest and the RED hash, never values read only from a replaceable manifest. This protects the path list as well as file hashes.
 
-The verifier compares Git bytes and modes to the manifest, index and working files. Protected edits, additions (including ignored/untracked files), deletions, staged changes and symlink changes fail. Baselines outside current history and tampered manifests fail. Verify before and after tests, after refactor, and immediately before the implementation commit; a failure blocks delivery. Run the exact approved test commands separately and compare collection with RED evidence. Never bypass assertions via flags, skips, mocks, runner changes or production special cases.
+The verifier compares Git bytes and modes to the manifest, index and working files. Protected edits, additions (including ignored/untracked files), deletions, staged changes and symlink changes fail. Baselines outside current history and tampered manifests fail. Verify at GREEN entry, around the closing run, after refactor and immediately before the implementation commit; one verification can satisfy coincident checkpoints when no intervening change invalidates it. A failure blocks delivery. Run the approved iteration/closing commands separately and compare closing collection with the approved set. Never bypass assertions via flags, skips, test-only mocks that hide the behavior under test, runner changes or production special cases. Ordinary unit-test doubles at real external boundaries remain appropriate.
 
 The tool verifies integrity, not approval, test quality or coverage. Use it as a local/CI gate with the independently recorded baseline. It is not a tamper-proof security boundary against someone who can edit the verifier or CI itself.
 
@@ -52,7 +75,7 @@ Stop GREEN and mark Blocked. Explain the defect and preserve implementation sepa
 
 Keep one source for each fact: the story owns scope, status and compact delivery evidence; criteria name their tests or manual checks; the manifest owns protected paths and file hashes; the backlog is a one-line index. Existing backlogs may retain useful status/priority columns, but do not require synchronization of intermediate states. Create detailed files only for selected stories. Do not generate reports, raw log archives, empty sections or decision records by default.
 
-The driver maintains three evidence entries: RED (commands, collection, baseline/expected failures, explicit approval and full test commit); contract (manifest path, independently recorded SHA-256 and verification result); delivery (GREEN/regression commands/results, human validation and implementation commit). Concise summaries or durable links suffice. Keep the exact approved test revision identifiable; do not replace approval with an overall success summary. Record contract revisions or limitations only when they arise. The hashes and digest remain required for integrity checks, without duplicating manifest contents or terminal logs. No extra evidence-only commit is required: record final delivery references locally or in the next normal documentation update.
+The driver maintains three evidence entries: RED (iteration/closing plan, collection, baseline/expected failures, explicit approval and full test commit); contract (manifest path, independently recorded SHA-256 and verification result); delivery (closing results, any reused evidence with validity reason, human validation, checks not run/remaining risks and implementation commit). Concise summaries or durable links suffice. Keep the exact approved test revision identifiable; do not replace approval with an overall success summary. Record contract revisions or limitations only when they arise. The hashes and digest remain required for integrity checks, without duplicating manifest contents or terminal logs. No extra evidence-only commit is required: record final delivery references locally or in the next normal documentation update.
 
 Update usage documentation when behavior changes; propose adjacent improvements separately. Review and automation never substitute for navigator validation.
 
