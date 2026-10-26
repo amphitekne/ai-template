@@ -16,6 +16,29 @@ Copy all five skills, docs/, templates/, scripts/, and the relevant AGENTS.md ag
 
 Use this repository as a starting template for a single repository or a monorepo. Keep AGENTS.md as the reusable working agreement. Replace `docs/project-guide.md` with the target project's accepted decisions using the guide template; its current template-maintenance rules do not transfer to the new product. Adapt this README to the new project. Keep the shared workflow, skill procedures, and contract tooling available at their linked paths.
 
+## Copy into an existing repository
+
+Run this from the root of your destination repository in Bash (Linux, macOS, or Git Bash on Windows). It clones into a unique temporary directory, exports tracked content without `.git`, copies it into the current directory including hidden files such as `.agents/`, and removes the temporary directory. Your destination repository's Git history and remote are preserved.
+
+```bash
+(
+  set -euo pipefail
+  template_dir="$(mktemp -d)"
+  trap 'rm -rf -- "$template_dir"' EXIT
+
+  git clone --depth 1 https://github.com/amphitekne/ai-template.git "$template_dir/source"
+  mkdir "$template_dir/content"
+  git -C "$template_dir/source" archive HEAD | tar -xf - -C "$template_dir/content"
+  cp -ai "$template_dir/content/." .
+)
+
+git status --short
+```
+
+`cp -ai` asks before overwriting existing files. Answer `n` for files whose content you want to preserve, then merge the relevant instructions manually, especially AGENTS.md, README.md, `.gitignore`, and any existing skills or documentation. The trailing `/.` copies the contents directly into the destination root rather than creating a template folder. Review the resulting diff before committing and adapt the project guide to your product.
+
+`git clone` has no option to omit `.git`, and cloning into a nonempty repository root is not supported. The temporary clone plus `git archive` avoids copying the template's Git metadata; cleanup removes only the temporary clone and export. Do not run this block in PowerShell: `cp` there is a different command. Use a Git Bash terminal for these commands on Windows.
+
 Typical flow: `$backlog` → `$story` → `$pair`. Example requests: “Use $backlog to split this feature”; “Use $story to refine S-001”; “Use $pair for S-001”; “Use $refactor on this passing implementation”; “Use $review on this diff.” Each skill still requires its own human invocation. Proposals do not authorize implementation.
 
 Keep the backlog to one line per accepted item; expand only the next selected story. Use a few observable criteria, a small plan, and three compact delivery-evidence entries. Tests exercise public behavior with independent expected values; visual or otherwise unsuitable automated checks get explicit manual validation steps. Pause after two fix attempts on the same failure without meaningful progress. There are no fixed line/file quotas or mandatory review/refactor rounds. Explicit test approval, the committed RED contract, human validation and the separate implementation commit remain required.
