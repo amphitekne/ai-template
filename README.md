@@ -53,6 +53,16 @@ Use unit tests for logic and focused integration only where a real boundary need
 
 Docker images, full deployment stacks and automated E2E run only on explicit request or under accepted project requirements. Keep their commands separate in the project guide. The human validates complete flows with supplied steps; the driver reports what automation did and did not establish. Contract integrity remains mandatory; regression tests of the contract tool itself run when that tool changes or when required, not for every product story. See [execution and evidence rules](docs/workflow.md#execution-plan-and-reusable-evidence). Existing story contracts are not silently reduced by adopting this default.
 
+## Agile Docker Compose development
+
+Select the [docker-compose preset](presets/docker-compose.md) when the project uses Docker: “Apply docker-compose to this project's runtime.” Combine it with backend/frontend presets as needed; it adds guidance, not generated Compose files or a new skill.
+
+- Development keeps application services running with mounted source and reload/HMR, plus persistent development data for human checks.
+- Focused integration starts only isolated real dependencies such as a test database. Tests run application code in-process or in a one-off runner using current source; they do not repoint the running dev backend or require the frontend/proxy by default. Reuse dependencies during the session, reset between cases and remove only dedicated test storage at explicit cleanup.
+- Production-style execution uses built images without source mounts/reload. Build and deployment checks run at explicit/accepted triggers, not per source edit.
+
+The guide records actual `dev`, `test-unit`, `test-integration`, `test-integration-clean` and `check-deploy` commands using existing project tooling. These names describe responsibilities, not extra scripts supplied by the template. The preset proposes a small runtime Compose file, a dev override and a minimal independent integration file; preserve an existing equivalent setup. Do not create unnecessary services, files or task-runner dependencies.
+
 ## Evolving technical guidance
 
 For reusable starting choices, use the [stack preset catalog](presets/README.md): [Python 3.15 + uv + FastAPI + Pydantic](presets/backend-python-fastapi.md) or [React + Vite + Zod + pnpm](presets/frontend-react-vite.md). For example: “Apply backend-python-fastapi to apps/api and frontend-react-vite to apps/web.” No new skill or script is needed. The driver snapshots accepted rules into the applicable guides; the catalog alone does not activate rules or install anything. Presets cover modular clean architecture, API validation and routers, or reusable UI and a single source of design tokens. Project-specific choices remain in the guide, and preset updates never migrate adopted projects automatically.

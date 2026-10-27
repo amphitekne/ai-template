@@ -28,6 +28,8 @@ Record defaults that help keep code homogeneous: module layout, naming, error ha
 
 Testing defaults to fast unit tests, focused integration where a real boundary needs it, and human full-flow validation. Record actual fast commands and working directories; list costly Docker/deployment/E2E commands separately with their explicit execution triggers. State accepted stronger requirements by scope rather than silently adding them to the default test command. A story approves its iteration/closing selection and any reuse follows the shared workflow; no exhaustive suite is mandatory merely because it exists.
 
+If Docker Compose is selected, use the [Docker preset](../presets/docker-compose.md) as the starting point for accepted environment rules. Record development reload and persistent-data behavior, the isolated integration project/storage/connection and between-test reset strategy, the runner location, explicit test cleanup, and production-style check triggers. Fill only actual project choices and commands; do not scaffold infrastructure from this template alone. Keep package-guide links relative to their actual locations when adopting this instruction.
+
 ## Experiments
 
 Record only accepted trials. Include a rule ID, limited scope, approach, success/stop criteria, and a review trigger such as a story outcome or date. At that trigger, ask the navigator to retain, revise, or end the trial. Do not silently promote it to a convention or extend it beyond scope. Unresolved trials do not authorize expansion.

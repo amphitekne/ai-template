@@ -6,10 +6,13 @@ Presets are reusable technical guidance, not skills, executable installers, or a
 | --- | --- |
 | [backend-python-fastapi](backend-python-fastapi.md) | Modular Python 3.15 backend with uv, FastAPI and Pydantic |
 | [frontend-react-vite](frontend-react-vite.md) | Modular React frontend with Vite, Zod, pnpm and centralized design tokens |
+| [docker-compose](docker-compose.md) | Reload-based development, isolated integration dependencies and separate production-style checks |
 
 ## Apply a preset
 
 The navigator can say: “Apply backend-python-fastapi to apps/api” or “Use both presets for this project, backend in apps/api and frontend in apps/web.” This is a normal instruction; no skill invocation or extra process phase is needed.
+
+Infrastructure presets can compose with language presets. For example: “Apply docker-compose to the shared runtime, backend-python-fastapi to apps/api and frontend-react-vite to apps/web.” Keep shared environment/lifecycle rules in the root guide and package-specific commands in the relevant local guides; link them without duplicating conflicting rules. This records accepted guidance, not permission to immediately build, start or replace environments.
 
 1. Read existing applicable guidance and configuration. Resolve the intended package/path scope; do not assume a particular repository layout. Surface only conflicts, compatibility problems or choices that materially affect the work. An explicit selection accepts the preset's stated defaults for that scope; obtain acceptance for proposed deviations instead of asking again about unchanged defaults.
 2. Create or update the scoped project guide using the [template](../templates/project-guide.md). Copy the selected rules into it with stable IDs, scope, source preset path and revision (Git commit when available), and any accepted overrides. The guide is the active, self-contained snapshot; do not require opening the entire preset catalog for each story. In a monorepo, link this guide from the root scope index. In a single repository, the root guide may contain the rules directly.
