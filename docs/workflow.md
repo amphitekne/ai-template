@@ -1,10 +1,18 @@
 # Pairing workflow — v5
 
-Backlog splits feature intent into a short list and records accepted work; story refines one selected slice just before implementation; pair drives it. Refactor and review are optional unless explicitly required by the navigator or project rules. The navigator controls direction and validation; the AI driver works in small understandable steps.
+Capture remembers future possibilities without accepting work; backlog splits feature intent into a short list and records accepted work; story refines one selected slice just before implementation; pair drives it. Refactor and review are optional unless explicitly required by the navigator or project rules. The navigator controls direction and validation; the AI driver works in small understandable steps.
 
 ## Skill activation
 
 Only the human explicitly invokes skills, for example with `$story` or `$pair`. Every skill disables implicit invocation in its `agents/openai.yaml`. The driver may suggest a next skill but must not activate it, chain skills, or interpret a workflow handoff as permission to invoke one. Optional refactoring through the refactor skill requires its own human invocation. Normal steps within an already invoked skill remain authorized within its scope and approval gates.
+
+## Capture without changing scope
+
+Use `$capture` to append a future idea to the existing ideas inbox, or create `docs/ideas.md` on the first capture. It contains short notes with stable IDs; it is not the accepted backlog or a specification. Capture does not investigate, implement, run checks, change story scope or make commits. No extra approval round is needed to save the note the human explicitly asked to capture.
+
+For a brief aside in this chat, the human can say “$capture this for later, then continue where you were.” Resume only the previously authorized work and preserve pending gates; capture never supplies test approval or final validation. For ideas while another chat is implementing, the human can use a dedicated ideas chat in the same checkout. Restrict that chat to the inbox and serialize writes to that file; do not let it change code, commit, or control the implementation chat. A separate worktree has separate files and needs an explicit transfer of the idea later. Do not assume automatic cross-chat notification or synchronization. Keep the uncommitted inbox change out of implementation/test staging; if a tracked change prevents a clean RED seal, arrange its separate commit with the human at a suitable point rather than including it in the story's test commit or weakening the seal gate.
+
+The human later invokes backlog to review selected ideas. Accepted ideas become backlog items; deferred ones stay Pending; dismissed ones remain marked Dismissed. Retain source IDs and links when marking an entry Promoted so capture does not generate duplicate work. A blocker or urgent risk affecting the active story must be raised with its implementation chat, not merely parked in the inbox. Capture never modifies a protected inbox under an active contract.
 
 | From | Required evidence | To |
 | --- | --- | --- |
