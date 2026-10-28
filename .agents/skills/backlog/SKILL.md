@@ -1,5 +1,6 @@
 ---
 name: backlog
+disable-model-invocation: true
 description: Split feature intent into a short backlog of vertical stories and maintain accepted work; leave detailed criteria and implementation to story and pair.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: story
+disable-model-invocation: true
 description: Refine one selected story into observable acceptance criteria, explicit scope and a small plan for approval; not feature-wide backlog planning or implementation.
 ---
 

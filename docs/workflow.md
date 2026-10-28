@@ -4,7 +4,9 @@ Capture remembers future possibilities without accepting work; backlog splits fe
 
 ## Skill activation
 
-Only the human explicitly invokes skills, for example with `$story` or `$pair`. Every skill disables implicit invocation in its `agents/openai.yaml`. The driver may suggest a next skill but must not activate it, chain skills, or interpret a workflow handoff as permission to invoke one. Optional refactoring through the refactor skill requires its own human invocation. Normal steps within an already invoked skill remain authorized within its scope and approval gates.
+Only the human explicitly invokes skills: `$story` or `$pair` in Codex, `/skill:story` or `/skill:pair` in Pi Coding Agent. The same distinction applies to capture, backlog, refactor and review; translate command examples below for the active agent. Each skill has `disable-model-invocation: true` in SKILL.md for Pi and `policy.allow_implicit_invocation: false` in `agents/openai.yaml` for Codex. Keep both when distributing skills. The driver may suggest a next skill but must not activate it, chain skills, or interpret a workflow handoff as permission to invoke one. Optional refactoring through the refactor skill requires its own human invocation. Normal steps within an already invoked skill remain authorized within its scope and approval gates.
+
+AGENTS.md is the shared entry point; read linked guides/workflow explicitly rather than assuming Markdown links inject their contents. Keep one canonical copy of the skills in `.agents/skills/`, not separate Codex/Pi variants. Project trust/tool execution settings are managed by the user in the active agent, not by changing these workflow approvals. Human test approval is still a separate gate even when shell commands are permitted. See [agent setup](../README.md#codex-and-pi-coding-agent).
 
 ## Capture without changing scope
 

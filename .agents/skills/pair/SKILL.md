@@ -1,5 +1,6 @@
 ---
 name: pair
+disable-model-invocation: true
 description: Implement an accepted slice as AI driver with a human navigator, through RED approval and test commit, GREEN, human validation and separate implementation commit.
 ---
 

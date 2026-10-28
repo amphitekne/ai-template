@@ -2,7 +2,26 @@
 
 Six skills for human-led pair programming and lightweight idea capture. The human navigates; the AI drives. No custom subagents.
 
-Skills are user-invoked only: use `$capture`, `$backlog`, `$story`, `$pair`, `$refactor`, or `$review`. Each skill's `agents/openai.yaml` sets `policy.allow_implicit_invocation: false`; copy these files with the skills. The AI may recommend another skill but waits for your explicit invocation. These `agents/` directories contain skill configuration, not custom subagents. Start a new session to reload changed invocation settings if needed.
+Compatible with Codex and Pi Coding Agent using the same files. Skills are user-invoked only. Each SKILL.md sets `disable-model-invocation: true` for Pi; each skill's `agents/openai.yaml` retains `policy.allow_implicit_invocation: false` for Codex. Copy both with the skills. The AI may recommend another skill but waits for your explicit invocation. These `agents/` directories contain skill configuration, not custom subagents.
+
+## Codex and Pi Coding Agent
+
+| Skill | Codex | Pi |
+| --- | --- | --- |
+| Capture | `$capture` | `/skill:capture` |
+| Backlog | `$backlog` | `/skill:backlog` |
+| Story | `$story` | `/skill:story` |
+| Pair | `$pair` | `/skill:pair` |
+| Refactor | `$refactor` | `/skill:refactor` |
+| Review | `$review` | `/skill:review` |
+
+Examples below use Codex notation; substitute Pi's command from this table. For example, enter `/skill:pair Implement S-001` or `/skill:capture Add colored labels later` in Pi's interactive input. These are agent commands, not shell commands. Normal approval replies resume the current workflow without reinvoking the skill.
+
+Launch Pi from the target Git repository root with `pi`, grant project trust only after reviewing its content, and run `/reload` if resources changed during a session. Pi discovers `.agents/skills/` and reads AGENTS.md as context; inspect startup diagnostics and the `/skill:` commands. There is no need to copy skills to `.pi/skills/`, add a second instruction file, or replace Pi's system prompt. Existing user settings or duplicate skill names can affect discovery. In Codex, reopen the session if updated skills are not available.
+
+Both agents explicitly read the linked guides and use documented project commands. Presets, stories, backlog and the Python/Git contract verifier are agent-independent; Pi still needs Python 3 and Git available to run that verifier. Choose a shell appropriate to the command: the Bash import block below is not PowerShell. In monorepos, starting at the root makes shared resources available; independent nested Git repositories need their own resources as described under repository boundaries.
+
+Reference: [Pi skills and explicit invocation](https://pi.dev/docs/latest/skills), [Pi configuration and context files](https://pi.dev/docs/latest/configuration). This template does not install Pi, configure models/credentials or alter global agent settings.
 
 | Skill | Purpose |
 | --- | --- |
@@ -13,7 +32,7 @@ Skills are user-invoked only: use `$capture`, `$backlog`, `$story`, `$pair`, `$r
 | [refactor](.agents/skills/refactor/SKILL.md) | Optionally simplify passing code |
 | [review](.agents/skills/review/SKILL.md) | Check correctness, scope, integrity, and clarity |
 
-Copy all six skills, docs/, templates/, presets/, scripts/, and the relevant AGENTS.md agreement into a target repository, preserving relative paths and merging existing conventions. Reopen a Codex session if new skills are not discovered.
+Copy all six skills, docs/, templates/, presets/, scripts/, and the relevant AGENTS.md agreement into a target repository, preserving relative paths and merging existing conventions. Reload Pi or reopen Codex if new skills are not discovered.
 
 Use this repository as a starting template for a single repository or a monorepo. Keep AGENTS.md as the reusable working agreement. Replace `docs/project-guide.md` with the target project's accepted decisions using the guide template; its current template-maintenance rules do not transfer to the new product. Adapt this README to the new project. Keep the shared workflow, skill procedures, and contract tooling available at their linked paths.
 

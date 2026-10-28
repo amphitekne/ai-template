@@ -1,5 +1,6 @@
 ---
 name: capture
+disable-model-invocation: true
 description: Save a future idea, improvement or deferred detail in a lightweight ideas inbox without investigating, planning or implementing it; not for accepting backlog work or resolving current blockers.
 ---
 

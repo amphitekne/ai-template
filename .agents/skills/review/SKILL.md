@@ -1,5 +1,6 @@
 ---
 name: review
+disable-model-invocation: true
 description: Review code, stories, or instructions for correctness, scope, contract integrity and readability; report findings without edits unless requested.
 ---
 

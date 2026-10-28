@@ -1,5 +1,6 @@
 ---
 name: refactor
+disable-model-invocation: true
 description: Simplify passing code while preserving behavior and its approved test contract; for readability, not features or test repair.
 ---
 
