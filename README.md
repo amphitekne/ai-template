@@ -1,6 +1,6 @@
 # templating-ai — v5
 
-Six skills for human-led pair programming and lightweight idea capture. The human navigates; the AI drives. No custom subagents.
+Nine skills for human-led pair programming, lightweight idea capture and UI design/review. The human navigates; the AI drives. No custom subagents.
 
 Compatible with Codex and Pi Coding Agent using the same files. Skills are user-invoked only. Each SKILL.md sets `disable-model-invocation: true` for Pi; each skill's `agents/openai.yaml` retains `policy.allow_implicit_invocation: false` for Codex. Copy both with the skills. The AI may recommend another skill but waits for your explicit invocation. These `agents/` directories contain skill configuration, not custom subagents.
 
@@ -14,6 +14,9 @@ Compatible with Codex and Pi Coding Agent using the same files. Skills are user-
 | Pair | `$pair` | `/skill:pair` |
 | Refactor | `$refactor` | `/skill:refactor` |
 | Review | `$review` | `/skill:review` |
+| Design UI | `$design-ui` | `/skill:design-ui` |
+| Review UI | `$review-ui` | `/skill:review-ui` |
+| Review Slop | `$review-slop` | `/skill:review-slop` |
 
 Examples below use Codex notation; substitute Pi's command from this table. For example, enter `/skill:pair Implement S-001` or `/skill:capture Add colored labels later` in Pi's interactive input. These are agent commands, not shell commands. Normal approval replies resume the current workflow without reinvoking the skill.
 
@@ -31,8 +34,11 @@ Reference: [Pi skills and explicit invocation](https://pi.dev/docs/latest/skills
 | [pair](.agents/skills/pair/SKILL.md) | RED approval and commit, GREEN, validation and implementation commit |
 | [refactor](.agents/skills/refactor/SKILL.md) | Optionally simplify passing code |
 | [review](.agents/skills/review/SKILL.md) | Check correctness, scope, integrity, and clarity |
+| [design-ui](.agents/skills/design-ui/SKILL.md) | Propose a visual and interaction direction before implementation |
+| [review-ui](.agents/skills/review-ui/SKILL.md) | Review usability, accessibility, responsive behavior and interface states |
+| [review-slop](.agents/skills/review-slop/SKILL.md) | Identify generic patterns and propose product-specific identity improvements |
 
-Copy all six skills, docs/, templates/, presets/, scripts/, and the relevant AGENTS.md agreement into a target repository, preserving relative paths and merging existing conventions. Reload Pi or reopen Codex if new skills are not discovered.
+Copy all nine skills, docs/, templates/, presets/, scripts/, and the relevant AGENTS.md agreement into a target repository, preserving relative paths and merging existing conventions. Reload Pi or reopen Codex if new skills are not discovered.
 
 Use this repository as a starting template for a single repository or a monorepo. Keep AGENTS.md as the reusable working agreement. Replace `docs/project-guide.md` with the target project's accepted decisions using the guide template; its current template-maintenance rules do not transfer to the new product. Adapt this README to the new project. Keep the shared workflow, skill procedures, and contract tooling available at their linked paths.
 
